@@ -1,32 +1,51 @@
-# React + TypeScript + Vite
+# Lucro Claro
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Painel web que mostra o lucro real da loja de um MEI que vende em marketplaces, com números simples e visuais.
 
-Currently, two official plugins are available:
+> Projeto em desenvolvimento. Este README será completado ao final do MVP, com prints, decisões técnicas e próximos passos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## O problema
 
-## React Compiler
+A Central do Vendedor mostra vendas, mas não responde perguntas como "quanto sobrou de verdade?" ou "qual produto está dando prejuízo?". Faltam os custos do produto, os custos extras de cada pedido (sacola, etiqueta, brinde) e a leitura em linguagem simples.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## A solução
 
-## Expanding the Oxlint configuration
+O Lucro Claro lê os relatórios exportados da Central do Vendedor e calcula o lucro real por dia, semana, mês e produto, com metas, comparação entre períodos e controle do limite anual do MEI.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+**Privacidade:** os dados de vendas ficam salvos só no navegador de quem usa. Não existe servidor e nada é enviado pela internet.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Tecnologias
+
+- React, TypeScript e Vite
+- Tailwind CSS
+- React Router
+- Dexie (IndexedDB) para guardar os dados no navegador
+- Vitest para testar os cálculos
+
+## Como rodar
+
+Pré-requisito: Node.js instalado.
+
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Outros comandos:
+
+```bash
+npm test
+npm run build
+```
+
+## Etapas do MVP
+
+- [x] Projeto base, layout e formatadores de moeda e data
+- [x] Tipos, cálculos de lucro e banco local
+- [ ] Modo demonstração
+- [ ] Produtos, custos extras e taxas
+- [ ] Visão geral com metas
+- [ ] Importação de relatórios
+- [ ] Comparação de períodos
+- [ ] Lucro por produto
+- [ ] Controle do MEI
