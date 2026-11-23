@@ -77,7 +77,7 @@ describe('configurações', () => {
 
   it('guarda a meta e o limite do MEI', async () => {
     await repos.saveGoal({ metric: 'profit', dailyTarget: 5000, monthlyTarget: 150000 })
-    await repos.saveMeiSettings({ annualLimit: 8_100_000, dasDueDay: 20, dasAmount: 8205 })
+    await repos.saveMeiSettings({ annualLimit: 8_100_000, dasDueDay: 20, dasAmount: 8205, openingDate: null })
 
     expect((await repos.getGoal()).monthlyTarget).toBe(150000)
     expect((await repos.getMeiSettings()).dasAmount).toBe(8205)

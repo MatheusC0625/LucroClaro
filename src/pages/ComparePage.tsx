@@ -1,22 +1,15 @@
 import { useMemo, useState } from 'react'
 import { ComparisonCards } from '../components/compare/ComparisonCards'
 import { ComparisonCharts } from '../components/compare/ComparisonCharts'
-import { PeriodPicker, type PeriodInput } from '../components/compare/PeriodPicker'
+import { PeriodPicker } from '../components/compare/PeriodPicker'
+import { toPeriod, type PeriodInput } from '../components/compare/periodInput'
 import { cardClass } from '../components/ui/styles'
 import { useOrdersAndCosts } from '../hooks/useOrdersAndCosts'
 import { comparePeriods } from '../services/calculations/comparison'
 import { getComparePresets } from '../services/calculations/comparePresets'
-import { isValidPeriod } from '../services/calculations/periods'
 import { cumulativeProfitSeries } from '../services/calculations/series'
 import { describeComparison } from '../services/format/compareMessages'
-import { isValidISODate, todayISO } from '../services/format/date'
-import type { Period } from '../types/period'
-
-function toPeriod(input: PeriodInput): Period | null {
-  if (!isValidISODate(input.start) || !isValidISODate(input.end)) return null
-  const period = { start: input.start, end: input.end }
-  return isValidPeriod(period) ? period : null
-}
+import { todayISO } from '../services/format/date'
 
 export function ComparePage() {
   const data = useOrdersAndCosts()

@@ -51,3 +51,19 @@ export function NameInput(props: BaseFieldProps<string>) {
     />
   )
 }
+
+export function DayInput(props: BaseFieldProps<number>) {
+  return (
+    <CommittedInput
+      {...props}
+      format={String}
+      parse={(text) => {
+        if (!/^\d{1,2}$/.test(text.trim())) return null
+        const day = Number(text)
+        return day >= 1 && day <= 31 ? day : null
+      }}
+      errorMessage="Digite um dia do mês, de 1 a 31."
+      inputMode="decimal"
+    />
+  )
+}

@@ -80,7 +80,7 @@ export function createRepositories(db: LucroClaroDatabase) {
 
     async getMeiSettings(): Promise<MeiSettings> {
       const record = await db.settings.get(MEI_KEY)
-      return (record?.value as MeiSettings | undefined) ?? DEFAULT_MEI_SETTINGS
+      return { ...DEFAULT_MEI_SETTINGS, ...(record?.value as Partial<MeiSettings> | undefined) }
     },
 
     async saveMeiSettings(settings: MeiSettings): Promise<void> {

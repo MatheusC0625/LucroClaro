@@ -1,9 +1,5 @@
 import { inputClass, labelClass } from '../ui/styles'
-
-export interface PeriodInput {
-  start: string
-  end: string
-}
+import type { PeriodInput } from './periodInput'
 
 interface PeriodPickerProps {
   legend: string

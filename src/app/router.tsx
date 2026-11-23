@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
 import { ComparePage } from '../pages/ComparePage'
 import { HomePage } from '../pages/HomePage'
+import { MeiPage } from '../pages/MeiPage'
 import { PlaceholderPage } from '../pages/PlaceholderPage'
+import { ProfitByProductPage } from '../pages/ProfitByProductPage'
 import { ProductsPage } from '../pages/ProductsPage'
 
 export const router = createBrowserRouter([
@@ -32,21 +34,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/lucro-por-produto',
-        element: (
-          <PlaceholderPage
-            title="Lucro por produto"
-            description="Descubra quais produtos dão lucro e quais estão dando prejuízo."
-          />
-        ),
+        element: <ProfitByProductPage />,
       },
       {
         path: '/mei',
-        element: (
-          <PlaceholderPage
-            title="Controle MEI"
-            description="Acompanhe quanto você já faturou no ano em relação ao limite do MEI e não esqueça do DAS."
-          />
-        ),
+        element: <MeiPage />,
       },
     ],
   },

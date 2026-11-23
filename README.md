@@ -47,5 +47,5 @@ npm run build
 - [x] Visão geral com metas
 - [ ] Importação de relatórios
 - [x] Comparação de períodos
-- [ ] Lucro por produto
-- [ ] Controle do MEI
+- [x] Lucro por produto
+- [x] Controle do MEI

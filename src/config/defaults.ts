@@ -11,4 +11,5 @@ export const DEFAULT_MEI_SETTINGS: MeiSettings = {
   annualLimit: 8_100_000, // R$ 81.000,00
   dasDueDay: 20,
   dasAmount: null,
+  openingDate: null,
 }
