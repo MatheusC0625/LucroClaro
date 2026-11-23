@@ -8,8 +8,8 @@ import type { Period } from '../types/period'
 import type { Product } from '../types/product'
 import type { LucroClaroDatabase } from './database'
 
-const GOAL_KEY = 'goal'
-const MEI_KEY = 'mei'
+export const GOAL_KEY = 'goal'
+export const MEI_KEY = 'mei'
 
 export interface SaveOrdersResult {
   added: number

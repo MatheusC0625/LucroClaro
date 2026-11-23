@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
+import { HomePage } from '../pages/HomePage'
 import { PlaceholderPage } from '../pages/PlaceholderPage'
 
 export const router = createBrowserRouter([
@@ -8,12 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: (
-          <PlaceholderPage
-            title="Início"
-            description="Aqui vai aparecer o resumo da sua loja: quanto você faturou, quanto sobrou de lucro e como estão suas metas."
-          />
-        ),
+        element: <HomePage />,
       },
       {
         path: '/importar',

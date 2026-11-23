@@ -42,7 +42,7 @@ npm run build
 
 - [x] Projeto base, layout e formatadores de moeda e data
 - [x] Tipos, cálculos de lucro e banco local
-- [ ] Modo demonstração
+- [x] Modo demonstração
 - [ ] Produtos, custos extras e taxas
 - [ ] Visão geral com metas
 - [ ] Importação de relatórios

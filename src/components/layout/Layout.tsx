@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { navItems } from '../../app/navigation'
+import { useDataMode } from '../../hooks/useDataMode'
+import { DataModeBar } from './DataModeBar'
 
 function linkClass({ isActive }: { isActive: boolean }) {
   return [
@@ -11,6 +13,8 @@ function linkClass({ isActive }: { isActive: boolean }) {
 }
 
 export function Layout() {
+  const { ready, storageError } = useDataMode()
+
   return (
     <div className="min-h-screen md:flex">
       <a
@@ -40,12 +44,24 @@ export function Layout() {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
+        <DataModeBar />
         <p className="bg-emerald-50 px-4 py-2 text-center text-sm text-emerald-900">
           Seus dados ficam só neste navegador. Nada é enviado para servidor
           nenhum.
         </p>
         <main id="conteudo" className="flex-1 p-4 pb-24 md:p-8 md:pb-8">
-          <Outlet />
+          {storageError ? (
+            <p role="alert" className="max-w-prose text-red-800">
+              Seu navegador não permitiu guardar dados neste site. Saia da aba
+              anônima ou libere o armazenamento do site e recarregue a página.
+            </p>
+          ) : ready ? (
+            <Outlet />
+          ) : (
+            <p role="status" className="text-slate-600">
+              Carregando seus dados...
+            </p>
+          )}
         </main>
       </div>
 
