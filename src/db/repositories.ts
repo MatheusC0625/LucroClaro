@@ -65,6 +65,10 @@ export function createRepositories(db: LucroClaroDatabase) {
       await db.feeSettings.put(fees)
     },
 
+    async deleteFeeSettings(effectiveFrom: string): Promise<void> {
+      await db.feeSettings.delete(effectiveFrom)
+    },
+
     async getGoal(): Promise<Goal> {
       const record = await db.settings.get(GOAL_KEY)
       return (record?.value as Goal | undefined) ?? DEFAULT_GOAL

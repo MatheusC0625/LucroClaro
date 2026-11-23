@@ -93,3 +93,20 @@ describe('clearAll', () => {
     expect(await repos.getProducts()).toEqual([])
   })
 })
+
+describe('taxas com data de vigência', () => {
+  it('apagar uma taxa remove só a daquela data', async () => {
+    await repos.saveFeeSettings({ effectiveFrom: '2026-01-01', commissionPercent: 14, fixedFeePerItem: 400 })
+    await repos.saveFeeSettings({ effectiveFrom: '2026-10-01', commissionPercent: 14, fixedFeePerItem: 450 })
+    await repos.deleteFeeSettings('2026-10-01')
+    expect((await repos.getFeeSettings()).map((f) => f.effectiveFrom)).toEqual(['2026-01-01'])
+  })
+
+  it('salvar com a mesma data atualiza em vez de duplicar', async () => {
+    await repos.saveFeeSettings({ effectiveFrom: '2026-01-01', commissionPercent: 14, fixedFeePerItem: 400 })
+    await repos.saveFeeSettings({ effectiveFrom: '2026-01-01', commissionPercent: 20, fixedFeePerItem: 400 })
+    const fees = await repos.getFeeSettings()
+    expect(fees).toHaveLength(1)
+    expect(fees[0].commissionPercent).toBe(20)
+  })
+})

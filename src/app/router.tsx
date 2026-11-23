@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
 import { HomePage } from '../pages/HomePage'
 import { PlaceholderPage } from '../pages/PlaceholderPage'
+import { ProductsPage } from '../pages/ProductsPage'
 
 export const router = createBrowserRouter([
   {
@@ -22,12 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/produtos',
-        element: (
-          <PlaceholderPage
-            title="Produtos e custos"
-            description="Cadastre quanto custa cada produto e os custos extras de cada pedido, como sacola e etiqueta."
-          />
-        ),
+        element: <ProductsPage />,
       },
       {
         path: '/comparar',
