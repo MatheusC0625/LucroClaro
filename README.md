@@ -2,7 +2,7 @@
 
 Painel web que mostra o **lucro real** da loja de um MEI que vende em marketplaces, em linguagem simples e com gráficos, para quem não conhece termos como GMV ou ROAS.
 
-**Demonstração:** abra o link do projeto na Vercel. Ele já abre com dados fictícios de uma loja (babuche, lip gloss, maquiagem infantil), então não precisa importar nada.
+**Demonstração:** [lucro-claro-nshh.vercel.app](https://lucro-claro-nshh.vercel.app). Ela já abre com dados fictícios de uma loja (babuche, lip gloss, maquiagem infantil), então não precisa importar nada.
 
 ![Tela inicial com o resumo do mês, metas e produtos campeões](docs/inicio.png)
 

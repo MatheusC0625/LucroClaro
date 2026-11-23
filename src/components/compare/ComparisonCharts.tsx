@@ -45,9 +45,9 @@ export function ComparisonCharts({ comparison, currentSeries, baseSeries }: Comp
 
   const barData = [
     { name: 'Vendas', atual: toReais(current.vendas), comparacao: toReais(base.vendas) },
-    { name: 'Taxas e frete', atual: toReais(current.taxas), comparacao: toReais(base.taxas) },
-    { name: 'Custo dos produtos', atual: toReais(current.produtos), comparacao: toReais(base.produtos) },
-    { name: 'Custos extras', atual: toReais(current.extras), comparacao: toReais(base.extras) },
+    { name: 'Taxas', atual: toReais(current.taxas), comparacao: toReais(base.taxas) },
+    { name: 'Produtos', atual: toReais(current.produtos), comparacao: toReais(base.produtos) },
+    { name: 'Extras', atual: toReais(current.extras), comparacao: toReais(base.extras) },
     { name: 'Lucro', atual: toReais(current.lucro), comparacao: toReais(base.lucro) },
   ]
 
@@ -62,7 +62,7 @@ export function ComparisonCharts({ comparison, currentSeries, baseSeries }: Comp
     <div className="grid gap-4 xl:grid-cols-2">
       <section className={cardClass}>
         <h3 className="font-semibold">Para onde foi o dinheiro</h3>
-        <p className="text-sm text-slate-600">Cada barra é um valor em reais nos dois períodos.</p>
+        <p className="text-sm text-slate-600">Taxas incluem o frete pago por você. Produtos é o custo do que você vendeu.</p>
         <div
           role="img"
           aria-label="Gráfico de barras com vendas, taxas, custos e lucro nos dois períodos. Os mesmos números estão nos cartões acima."

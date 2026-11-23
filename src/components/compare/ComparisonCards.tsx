@@ -27,14 +27,14 @@ function MetricCard({ title, current, base, change }: MetricCardProps) {
   return (
     <div className={cardClass}>
       <h3 className="font-semibold">{title}</h3>
-      <dl className="mt-3 grid grid-cols-2 gap-2">
-        <div>
-          <dt className="text-sm text-slate-600">Período atual</dt>
-          <dd className="text-xl font-bold">{current}</dd>
+      <dl className="mt-3 flex flex-col gap-1">
+        <div className="flex items-baseline justify-between gap-3">
+          <dt className="text-sm text-slate-600">Atual</dt>
+          <dd className="whitespace-nowrap text-xl font-bold">{current}</dd>
         </div>
-        <div>
+        <div className="flex items-baseline justify-between gap-3">
           <dt className="text-sm text-slate-600">Comparação</dt>
-          <dd className="text-xl font-bold text-slate-600">{base}</dd>
+          <dd className="whitespace-nowrap text-lg font-bold text-slate-600">{base}</dd>
         </div>
       </dl>
       {change && style && (
