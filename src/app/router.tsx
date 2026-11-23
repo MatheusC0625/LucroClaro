@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
+import { ComparePage } from '../pages/ComparePage'
 import { HomePage } from '../pages/HomePage'
 import { PlaceholderPage } from '../pages/PlaceholderPage'
 import { ProductsPage } from '../pages/ProductsPage'
@@ -27,12 +28,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/comparar',
-        element: (
-          <PlaceholderPage
-            title="Comparar períodos"
-            description="Escolha dois períodos e veja a diferença entre eles."
-          />
-        ),
+        element: <ComparePage />,
       },
       {
         path: '/lucro-por-produto',

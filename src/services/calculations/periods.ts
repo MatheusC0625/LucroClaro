@@ -44,6 +44,10 @@ export function shiftPeriodByYears(period: Period, years: number): Period {
   }
 }
 
+export function shiftPeriodByDays(period: Period, days: number): Period {
+  return { start: addDays(period.start, days), end: addDays(period.end, days) }
+}
+
 /** Quantidade de dias do período, contando o primeiro e o último. */
 export function getPeriodLengthInDays(period: Period): number {
   return daysBetween(period.start, period.end) + 1
