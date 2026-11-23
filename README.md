@@ -44,7 +44,7 @@ npm run build
 - [x] Tipos, cálculos de lucro e banco local
 - [x] Modo demonstração
 - [x] Produtos, custos extras e taxas
-- [ ] Visão geral com metas
+- [x] Visão geral com metas
 - [ ] Importação de relatórios
 - [ ] Comparação de períodos
 - [ ] Lucro por produto

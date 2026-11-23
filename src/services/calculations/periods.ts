@@ -56,6 +56,16 @@ export function getPreviousPeriod(period: Period): Period {
   return { start: addDays(end, -(length - 1)), end }
 }
 
+export function getPreviousMonthToDate(date: ISODate): Period {
+  const previousEnd = addDays(`${date.slice(0, 7)}-01`, -1)
+  const previousMonth = previousEnd.slice(0, 7)
+  const day = Math.min(Number(date.slice(8, 10)), Number(previousEnd.slice(8, 10)))
+  return {
+    start: `${previousMonth}-01`,
+    end: `${previousMonth}-${String(day).padStart(2, '0')}`,
+  }
+}
+
 /** Um período é válido se o início não for depois do fim. */
 export function isValidPeriod(period: Period): boolean {
   return period.start <= period.end

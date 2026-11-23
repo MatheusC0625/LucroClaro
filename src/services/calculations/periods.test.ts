@@ -5,6 +5,7 @@ import {
   getDayPeriod,
   getMonthPeriod,
   getPeriodLengthInDays,
+  getPreviousMonthToDate,
   getPreviousPeriod,
   getWeekPeriod,
   getYearPeriod,
@@ -90,5 +91,20 @@ describe('comparação entre períodos', () => {
   it('valida que o início não é depois do fim', () => {
     expect(isValidPeriod({ start: '2026-11-01', end: '2026-11-01' })).toBe(true)
     expect(isValidPeriod({ start: '2026-11-02', end: '2026-11-01' })).toBe(false)
+  })
+})
+
+describe('getPreviousMonthToDate', () => {
+  it('pega o mesmo trecho do mês passado, do dia 1 até o mesmo dia', () => {
+    expect(getPreviousMonthToDate('2026-11-23')).toEqual({ start: '2026-10-01', end: '2026-10-23' })
+  })
+
+  it('não passa do último dia do mês passado', () => {
+    expect(getPreviousMonthToDate('2026-03-31')).toEqual({ start: '2026-02-01', end: '2026-02-28' })
+    expect(getPreviousMonthToDate('2028-03-30')).toEqual({ start: '2028-02-01', end: '2028-02-29' })
+  })
+
+  it('em janeiro volta para dezembro do ano anterior', () => {
+    expect(getPreviousMonthToDate('2026-01-10')).toEqual({ start: '2025-12-01', end: '2025-12-10' })
   })
 })

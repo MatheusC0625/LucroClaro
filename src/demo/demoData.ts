@@ -164,7 +164,7 @@ export function generateDemoData(today: ISODate): DemoData {
       { effectiveFrom: '2025-01-01', commissionPercent: 14, fixedFeePerItem: 400 },
       { effectiveFrom: '2026-10-01', commissionPercent: 14, fixedFeePerItem: 450 },
     ],
-    goal: { metric: 'revenue', dailyTarget: 12000, monthlyTarget: 400000 },
+    goal: { metric: 'revenue', dailyTarget: 20000, monthlyTarget: 450000 },
     mei: DEFAULT_MEI_SETTINGS,
   }
 }

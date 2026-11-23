@@ -1,93 +1,85 @@
-import { useEffect, useState } from 'react'
-import { useDataMode } from '../hooks/useDataMode'
-import { filterOrdersByPeriod, getMonthPeriod } from '../services/calculations/periods'
-import { summarizeProfit, type ProfitSummary } from '../services/calculations/profit'
-import { formatCurrency } from '../services/format/currency'
-import { formatDate, todayISO } from '../services/format/date'
-import { formatPercent } from '../services/format/percent'
-
-interface StoredDataInfo {
-  orderCount: number
-  firstDate: string
-  lastDate: string
-  month: ProfitSummary
-}
+import { Link } from 'react-router-dom'
+import { ChampionsCard } from '../components/home/ChampionsCard'
+import { GoalsCard } from '../components/home/GoalsCard'
+import { PeriodCard } from '../components/home/PeriodCard'
+import { cardClass } from '../components/ui/styles'
+import { useHomeData } from '../hooks/useHomeData'
+import { getMonthPeriod, getWeekPeriod } from '../services/calculations/periods'
+import { formatDate } from '../services/format/date'
+import { describeMonthHeadline } from '../services/format/homeMessages'
 
 export function HomePage() {
-  const { repos, mode } = useDataMode()
-  const [info, setInfo] = useState<StoredDataInfo | null | undefined>(undefined)
+  const { today, summary, goal, hasOrders, saveGoal } = useHomeData()
 
-  useEffect(() => {
-    let cancelled = false
+  if (!summary || hasOrders === null) {
+    return <p className="text-slate-600">Carregando...</p>
+  }
 
-    async function load() {
-      const [orders, context] = await Promise.all([
-        repos.getOrders(),
-        repos.getCostContext(),
-      ])
-      if (cancelled) return
-
-      if (orders.length === 0) {
-        setInfo(null)
-        return
-      }
-
-      const dates = orders.map((order) => order.createdDate).sort()
-      const month = summarizeProfit(
-        filterOrdersByPeriod(orders, getMonthPeriod(todayISO())),
-        context,
-      )
-      setInfo({
-        orderCount: orders.length,
-        firstDate: dates[0],
-        lastDate: dates[dates.length - 1],
-        month,
-      })
-    }
-
-    load()
-    return () => {
-      cancelled = true
-    }
-  }, [repos, mode])
-
-  return (
-    <section>
-      <h1 className="text-2xl font-bold">Início</h1>
-      <p className="mt-2 max-w-prose text-slate-600">
-        Tela provisória: o resumo completo da loja chega na etapa da visão
-        geral.
-      </p>
-
-      {info === null && (
-        <p className="mt-6 max-w-prose rounded-lg bg-white p-4 text-slate-700 shadow-sm">
+  if (!hasOrders) {
+    return (
+      <section>
+        <h1 className="text-2xl font-bold">Início</h1>
+        <p className={`${cardClass} mt-6 max-w-prose text-slate-700`}>
           Ainda não há vendas guardadas. Importe um relatório da Central do
           Vendedor ou veja a demonstração.
         </p>
+      </section>
+    )
+  }
+
+  const week = getWeekPeriod(today)
+  const month = getMonthPeriod(today)
+
+  return (
+    <section className="flex flex-col gap-6">
+      <h1 className="sr-only">Início</h1>
+
+      <div className="rounded-xl bg-emerald-700 p-6 text-white shadow-sm">
+        <p className="text-2xl font-bold leading-snug md:text-3xl">
+          {describeMonthHeadline(summary.month, summary.previousMonthToDate, summary.monthProfitDifference)}
+        </p>
+      </div>
+
+      {summary.month.unknownCostSkus.length > 0 && (
+        <p role="status" className="rounded-xl bg-amber-50 p-4 text-amber-900">
+          {summary.month.unknownCostSkus.length}{' '}
+          {summary.month.unknownCostSkus.length === 1 ? 'produto vendido está' : 'produtos vendidos estão'}{' '}
+          sem custo cadastrado, então o lucro pode estar maior do que é.{' '}
+          <Link to="/produtos" className="font-semibold underline">
+            Informar os custos
+          </Link>
+        </p>
       )}
 
-      {info && (
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Pedidos guardados</p>
-            <p className="mt-1 text-3xl font-bold">{info.orderCount}</p>
-            <p className="mt-1 text-sm text-slate-600">
-              de {formatDate(info.firstDate)} a {formatDate(info.lastDate)}
-            </p>
-          </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        <PeriodCard title="Hoje" subtitle={formatDate(today)} summary={summary.today} />
+        <PeriodCard
+          title="Esta semana"
+          subtitle={`${formatDate(week.start)} a ${formatDate(week.end)}`}
+          summary={summary.week}
+        />
+        <PeriodCard
+          title="Este mês"
+          subtitle={`${formatDate(month.start)} a ${formatDate(month.end)}`}
+          summary={summary.month}
+        />
+      </div>
 
-          <div className="rounded-xl bg-white p-5 shadow-sm">
-            <p className="text-sm text-slate-600">Este mês, até agora</p>
-            <p className="mt-1 text-3xl font-bold">
-              {formatCurrency(info.month.profit)}
-            </p>
-            <p className="mt-1 text-sm text-slate-600">
-              de lucro, sobre {formatCurrency(info.month.revenue)} vendidos
-              {info.month.margin !== null &&
-                ` (margem de ${formatPercent(info.month.margin)})`}
-            </p>
-          </div>
-        </div>
+      <GoalsCard
+        goal={goal}
+        dailyGoal={summary.dailyGoal}
+        monthlyGoal={summary.monthlyGoal}
+        onSave={saveGoal}
+      />
+
+      <ChampionsCard champions={summary.champions} />
+
+      {summary.month.estimatedOrderCount > 0 && (
+        <p className="text-sm text-slate-600">
+          O lucro de {summary.month.estimatedOrderCount} pedidos do mês é uma
+          estimativa feita com as taxas que você cadastrou. Pedidos importados
+          do relatório "Minha Renda" usam o valor real.
+        </p>
       )}
     </section>
   )
