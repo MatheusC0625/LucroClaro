@@ -45,7 +45,7 @@ npm run build
 - [x] Modo demonstração
 - [x] Produtos, custos extras e taxas
 - [x] Visão geral com metas
-- [ ] Importação de relatórios
+- [x] Importação de relatórios
 - [x] Comparação de períodos
 - [x] Lucro por produto
 - [x] Controle do MEI

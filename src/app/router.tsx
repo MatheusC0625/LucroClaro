@@ -2,8 +2,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/layout/Layout'
 import { ComparePage } from '../pages/ComparePage'
 import { HomePage } from '../pages/HomePage'
+import { ImportPage } from '../pages/ImportPage'
 import { MeiPage } from '../pages/MeiPage'
-import { PlaceholderPage } from '../pages/PlaceholderPage'
 import { ProfitByProductPage } from '../pages/ProfitByProductPage'
 import { ProductsPage } from '../pages/ProductsPage'
 
@@ -17,12 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/importar',
-        element: (
-          <PlaceholderPage
-            title="Importar relatórios"
-            description="Envie o relatório exportado da Central do Vendedor para o Lucro Claro ler as suas vendas."
-          />
-        ),
+        element: <ImportPage />,
       },
       {
         path: '/produtos',
